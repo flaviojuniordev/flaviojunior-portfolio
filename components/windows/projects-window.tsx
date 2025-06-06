@@ -30,8 +30,8 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
       description: "Desenvolvida com Spring Boot, React e SQL, permitindo cadastro de usuários, gerenciamento de cursos, progresso e emissão de certificados.",
       image: "/gnosi.png?height=120&width=200",
       technologies: ["React", "Spring Boot", "Java", "SQL"],
-      github: "https://github.com",
-      demo: "https://demo.com",
+      github: "https://github.com/flaviojuniordev/Plataforma-de-Cursos-Gnosi",
+      demo: "https://github.com/flaviojuniordev/Plataforma-de-Cursos-Gnosi",
       featured: false,
     },
     {
@@ -45,6 +45,11 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
       featured: false,
     },
   ]
+
+  // Function to open links in a new tab
+  const openLink = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <WindowBase title="Meus Projetos" {...props}>
@@ -82,14 +87,27 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="h-7 text-xs">
-                      <Github className="w-3 h-3 mr-1" />
-                      Código
-                    </Button>
-                    <Button size="sm" className="h-7 text-xs">
-                      <ExternalLink className="w-3 h-3 mr-1" />
-                      Demo
-                    </Button>
+                    {project.github && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 text-xs"
+                        onClick={() => openLink(project.github)}
+                      >
+                        <Github className="w-3 h-3 mr-1" />
+                        Código
+                      </Button>
+                    )}
+                    {project.demo && (
+                      <Button
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => openLink(project.demo)}
+                      >
+                        <ExternalLink className="w-3 h-3 mr-1" />
+                        Demo
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
