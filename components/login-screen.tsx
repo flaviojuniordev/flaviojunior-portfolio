@@ -12,11 +12,9 @@ interface LoginScreenProps {
 }
 
 export function LoginScreen({ onLogin }: LoginScreenProps) {
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isLoading, setIsLoading] = useState(false)
-  const [showPasswordField, setShowPasswordField] = useState(false)
+  const [showLoginScreen, setShowLoginScreen] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -41,22 +39,21 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
   }
 
   const handleUserClick = () => {
-    setShowPasswordField(true)
+    setShowLoginScreen(true)
   }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simular carregamento
+    // Simular carregamento do sistema operacional
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     onLogin()
   }
 
   const handleBack = () => {
-    setShowPasswordField(false)
-    setPassword("")
+    setShowLoginScreen(false)
   }
 
   return (
@@ -66,12 +63,12 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
         className="absolute inset-0"
         style={{
           backgroundImage: `linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 100%)`,
-          filter: showPasswordField ? "blur(8px)" : "none",
+          filter: showLoginScreen ? "blur(8px)" : "none",
         }}
       />
 
-      {/* Overlay escuro quando mostra campo de senha */}
-      {showPasswordField && <div className="absolute inset-0 bg-black/30" />}
+      {/* Overlay escuro quando mostra tela de login */}
+      {showLoginScreen && <div className="absolute inset-0 bg-black/30" />}
 
       {/* Data e Hora */}
       <div className="absolute bottom-6 right-6 text-right">
@@ -91,11 +88,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
 
       {/* Card de Login */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {!showPasswordField ? (
-          /* Seleção de usuário */
+        {!showLoginScreen ? (
+          /* Seleção de usuário - aparência de sistema operacional */
           <div className="text-center">
             <div className="cursor-pointer group" onClick={handleUserClick}>
-              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto group-hover:scale-105 transition-transform duration-200 shadow-2xl">
+              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto group-hover:scale-105 transition-transform duration-200 shadow-2xl border-2 border-white/20">
                 <img
                   src="/images/flaviojr.jpg"
                   alt="Foto de Flávio Júnior"
@@ -103,11 +100,12 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
                 />
               </div>
               <h2 className="text-white text-2xl font-light mb-2">Flávio Júnior</h2>
-              <p className="text-white/80 text-sm">Desenvolvedor</p>
+              <p className="text-white/80 text-sm">Desenvolvedor de Software</p>
+              <p className="text-white/60 text-xs mt-6 animate-pulse">Clique para entrar</p>
             </div>
           </div>
         ) : (
-          /* Campo de senha */
+          /* Tela de login - estilo sistema operacional */
           <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 w-96 shadow-2xl border border-white/10">
             {/* Botão voltar */}
             <Button
@@ -122,7 +120,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
 
             {/* Avatar e nome */}
             <div className="text-center mb-6">
-              <div className="w-20 h-20 rounded-full overflow-hidden mb-3 mx-auto">
+              <div className="w-20 h-20 rounded-full overflow-hidden mb-3 mx-auto border-2 border-white/20">
                 <img
                   src="/images/flaviojr.jpg"
                   alt="Foto de Flávio Júnior"
@@ -134,62 +132,30 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
 
             {/* Formulário */}
             <form onSubmit={handleLogin} className="space-y-4">
-              <div className="relative">
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/60 rounded-lg pr-12 h-12"
-                  autoFocus
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-white/10 rounded text-white/60"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </Button>
+              <div className="bg-black/20 p-3 rounded-lg border border-white/10">
+                <p className="text-center text-white/90 text-sm">
+                  Bem-vindo ao meu portfólio
+                </p>
               </div>
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium"
-                disabled={isLoading || !password}
+                className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2"
+                disabled={isLoading}
               >
                 {isLoading ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Entrando...
+                    Iniciando sessão...
                   </div>
                 ) : (
-                  "Entrar"
+                  <>
+                    <Power className="w-4 h-4" />
+                    Iniciar Sessão
+                  </>
                 )}
               </Button>
             </form>
-
-            {/* Opções adicionais */}
-            <div className="mt-6 text-center">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-sm"
-              >
-                Esqueci minha senha
-              </Button>
-            </div>
-
-            <div className="mt-4 text-center">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-sm"
-              >
-                Opções de entrada
-              </Button>
-            </div>
           </div>
         )}
       </div>
