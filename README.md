@@ -74,6 +74,10 @@ O projeto inclui componentes de gráficos baseados no Recharts com opções de p
 
 Este portfólio inspirado em sistema operacional é uma maneira criativa de mostrar habilidades de desenvolvimento enquanto proporciona aos visitantes uma interface familiar e interativa para explorar seu trabalho.
 
+##WIREFRAME E PROTÓTIPOS
+
+[Wireframe e Protótipo(https://www.figma.com/design/WSRNH7xSNLwo36xJlyjlFp/flaviojunior-portifolio?node-id=3-1704&t=qVNFNftbl3pbmuZP-1)]
+
 ## Demonstração
 
 Você pode visualizar o projeto em funcionamento aqui: [https://flaviojunior-portfolio.vercel.app/](https://flaviojunior-portfolio.vercel.app/)
