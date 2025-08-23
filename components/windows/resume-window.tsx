@@ -15,13 +15,19 @@ interface ResumeWindowProps {
 export function ResumeWindow(props: ResumeWindowProps) {
   const experiences = [
     {
-      title: "Desenvolvedor Full Stack",
+      title: "Desenvolvedor Full Stack Júnior",
+      company: "CDC Bank",
+      period: "Agosto 2025 - Presente",
+      description: "Desenvolvimento e manutenção de sistemas no setor BAAS (Banking as a Service) de banco digital.",
+    },
+    {
+      title: "Desenvolvedor Full Stack Estagiário",
       company: "Jedis Tecnologia",
-      period: "Março 2025 - Presente",
+      period: "Março 2025 - Agosto 2025",
       description: "Manutenção em sistema ATS com Ruby on Rails, desenvolvimento de IA com Python e NPL",
     },
     {
-      title: "Desenvolvedor Back End",
+      title: "Desenvolvedor Back End Trainee",
       company: "Agência Experimental de Software da PUC Minas",
       period: "Julho 2024 - Fevereiro 2025",
       description: "Atuação no projeto CuidoBem em parceria com Instituto Mario Penna",
