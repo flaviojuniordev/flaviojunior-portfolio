@@ -85,11 +85,12 @@ export function ContactWindow(props: ContactWindowProps) {
         to_name: 'Flávio Júnior'
       }
 
+      {/*Eu sei que não é a melhor prática mas por hora ficará assim.*/}
       const result = await emailjs.send(
         'service_lat357w',
-        'template_nxdp3dc', // Substitua pelo seu Template ID
+        'template_nxdp3dc', 
         templateParams,
-        'PTmA3Em5wq7rpSdXo' // Substitua pela sua Public Key
+        'PTmA3Em5wq7rpSdXo' 
       )
 
       console.log('Email enviado com sucesso:', result.text)
