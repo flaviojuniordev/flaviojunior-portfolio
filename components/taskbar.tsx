@@ -47,7 +47,7 @@ export function Taskbar({
   }
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-12 bg-black/40 backdrop-blur-xl border-t border-white/10">
+    <div className="fixed bottom-0 left-0 right-0 h-12 bg-black/40 backdrop-blur-xl border-t border-white/10 z-50">
       <div className="flex items-center h-full px-2">
         {/* Botão Iniciar */}
         <Button variant="ghost" size="sm" className="h-10 w-10 p-0 hover:bg-white/10 rounded-lg" onClick={onStartClick}>
@@ -66,9 +66,8 @@ export function Taskbar({
               key={windowId}
               variant="ghost"
               size="sm"
-              className={`h-10 px-3 hover:bg-white/10 rounded-lg text-white text-xs ${
-                activeWindow === windowId ? "bg-white/20" : ""
-              }`}
+              className={`h-10 px-3 hover:bg-white/10 rounded-lg text-white text-xs ${activeWindow === windowId ? "bg-white/20" : ""
+                }`}
               onClick={() => onWindowClick(windowId)}
             >
               {getWindowTitle(windowId)}
