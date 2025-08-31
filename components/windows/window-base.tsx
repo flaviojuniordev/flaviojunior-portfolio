@@ -73,6 +73,7 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
     if (
       e.target instanceof HTMLButtonElement ||
       (e.target as HTMLElement).closest('button') ||
+      isFullscreen ||
       isMobile
     ) {
       return;
@@ -80,13 +81,11 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
 
     e.preventDefault();
 
-    if (!windowRef.current || isFullscreen) return;
+    if (!windowRef.current) return;
 
     const rect = windowRef.current.getBoundingClientRect();
-
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
-
     setDragOffset({ x: offsetX, y: offsetY });
     setIsDragging(true);
 
@@ -96,10 +95,6 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
   const toggleFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation()
     setIsFullscreen(!isFullscreen)
-
-    if (!isFullscreen) {
-      setPosition({ x: 0, y: 0 });
-    }
   }
 
   const handleMinimize = (e: React.MouseEvent) => {
@@ -108,7 +103,6 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
     onMinimize()
   }
 
-  // Estilos padrão ajustados para melhor visibilidade em telas pequenas
   const defaultStyle = {
     left: "50%",
     top: "50%",
@@ -120,7 +114,6 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
     ...style,
   }
 
-  // Estilo de tela cheia com ajuste para a barra de tarefas
   const fullscreenStyle = {
     left: "0",
     top: "0",
@@ -134,7 +127,7 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
 
   const minimizedStyle = {
     left: "50%",
-    top: "200%", 
+    top: "200%",
     transform: "translate(-50%, -50%)",
     width: isMobile ? "95%" : "600px",
     height: isMobile ? "80%" : "500px",
@@ -178,12 +171,25 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
     }
   }
 
+  const appliedStyle = isFullscreen
+    ? fullscreenStyle
+    : isMinimized
+      ? { display: "none" }
+      : (position.x === 0 && position.y === 0)
+        ? defaultStyle
+        : {
+          ...defaultStyle,
+          left: position.x,
+          top: position.y,
+          transform: "none",
+        };
+
   return (
     <div
       ref={windowRef}
       className={`fixed bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${!isDragging ? "transition-all duration-200" : ""
         } ${isActive ? "ring-2 ring-blue-500/50" : ""} overflow-hidden`}
-      style={currentStyle}
+      style={appliedStyle}
       onClick={onActivate}
     >
       <div
