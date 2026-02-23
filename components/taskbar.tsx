@@ -42,6 +42,9 @@ export function Taskbar({
       skills: "Habilidades",
       contact: "Contato",
       resume: "Currículo",
+      terminal: "Terminal",
+      jogos: "Jogos",
+      "snake-game": "Snake Game",
     }
     return titles[windowId] || windowId
   }

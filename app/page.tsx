@@ -65,6 +65,7 @@ export default function Windows11Portfolio() {
         onClose={closeWindow}
         onMinimize={minimizeWindow}
         onActivate={setActiveWindow}
+        onOpenWindow={openWindow}
       />
 
       {isStartMenuOpen && <StartMenu onClose={() => setIsStartMenuOpen(false)} onOpenWindow={openWindow} />}

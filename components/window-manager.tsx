@@ -3,6 +3,9 @@ import { ProjectsWindow } from "./windows/projects-window"
 import { SkillsWindow } from "./windows/skills-window"
 import { ContactWindow } from "./windows/contact-window"
 import { ResumeWindow } from "./windows/resume-window"
+import { TerminalWindow } from "./windows/terminal-window"
+import { JogosWindow } from "./windows/jogos-window"
+import { SnakeGameWindow } from "./windows/snake-game-window"
 
 interface WindowManagerProps {
   openWindows: string[]
@@ -10,9 +13,10 @@ interface WindowManagerProps {
   onClose: (windowId: string) => void
   onMinimize: (windowId: string) => void
   onActivate: (windowId: string) => void
+  onOpenWindow: (windowId: string) => void
 }
 
-export function WindowManager({ openWindows, activeWindow, onClose, onMinimize, onActivate }: WindowManagerProps) {
+export function WindowManager({ openWindows, activeWindow, onClose, onMinimize, onActivate, onOpenWindow }: WindowManagerProps) {
   const renderWindow = (windowId: string) => {
     const isActive = activeWindow === windowId
     const zIndex = isActive ? 30 : 20
@@ -36,6 +40,12 @@ export function WindowManager({ openWindows, activeWindow, onClose, onMinimize, 
         return <ContactWindow key={windowId} {...commonProps} />
       case "resume":
         return <ResumeWindow key={windowId} {...commonProps} />
+      case "terminal":
+        return <TerminalWindow key={windowId} {...commonProps} />
+      case "jogos":
+        return <JogosWindow key={windowId} {...commonProps} onOpenWindow={onOpenWindow} />
+      case "snake-game":
+        return <SnakeGameWindow key={windowId} {...commonProps} />
       default:
         return null
     }

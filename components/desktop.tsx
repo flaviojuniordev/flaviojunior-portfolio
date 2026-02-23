@@ -1,6 +1,6 @@
 "use client"
 
-import { Monitor, Folder, FileText, User, Mail, Github, Linkedin } from "lucide-react"
+import { Monitor, Folder, FileText, User, Mail, Github, Linkedin, Terminal, Gamepad2 } from "lucide-react"
 
 interface DesktopProps {
   onOpenWindow: (windowId: string) => void
@@ -8,15 +8,21 @@ interface DesktopProps {
 
 export function Desktop({ onOpenWindow }: DesktopProps) {
   const desktopIcons = [
-    { id: "about", name: "Sobre Mim", icon: User },
+    { id: "about", name: "Sobre", icon: User },
     { id: "projects", name: "Projetos", icon: Folder },
     { id: "skills", name: "Habilidades", icon: Monitor },
     { id: "contact", name: "Contato", icon: Mail },
     { id: "resume", name: "Currículo", icon: FileText },
+    { id: "terminal", name: "Terminal", icon: Terminal },
+    { id: "jogos", name: "Jogos", icon: Gamepad2 },
   ]
 
+  // Barra de tarefas = h-12 (3rem). Usamos 4rem como margem segura para qualquer tela/zoom.
+  const safeBottom = "4rem"
+  const safeTop = "2rem"
+
   return (
-    <div className="absolute inset-0 p-4">
+    <div className="absolute inset-0 p-4" style={{ paddingBottom: safeBottom }}>
       {/* Wallpaper do Windows 11 */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800"
@@ -29,10 +35,19 @@ export function Desktop({ onOpenWindow }: DesktopProps) {
         }}
       />
 
-      {/* Grid de ícones alinhados */}
-      <div className="absolute top-8 left-8 grid grid-cols-1 gap-6">
+      {/* Área dos ícones: fluxo em colunas (preenche de cima pra baixo, depois coluna ao lado) */}
+      <div
+        className="absolute left-8 top-8 flex flex-col flex-wrap content-start gap-6"
+        style={{
+          height: `calc(100vh - ${safeTop} - ${safeBottom})`,
+        }}
+      >
         {desktopIcons.map((icon) => (
-          <div key={icon.id} className="cursor-pointer group" onDoubleClick={() => onOpenWindow(icon.id)}>
+          <div
+            key={icon.id}
+            className="cursor-pointer group flex-shrink-0 w-20"
+            onDoubleClick={() => onOpenWindow(icon.id)}
+          >
             <div className="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors duration-200 w-20">
               <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mb-2 group-hover:bg-white/30 transition-colors duration-200">
                 <icon.icon className="w-6 h-6 text-white" />

@@ -1,6 +1,6 @@
 "use client"
 
-import { User, Folder, Monitor, Mail, FileText, Power, Settings, Search } from "lucide-react"
+import { User, Folder, Monitor, Mail, FileText, Power, Settings, Search, Terminal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -16,6 +16,7 @@ export function StartMenu({ onClose, onOpenWindow }: StartMenuProps) {
     { id: "skills", name: "Habilidades", icon: Monitor, color: "bg-green-500" },
     { id: "contact", name: "Contato", icon: Mail, color: "bg-red-500" },
     { id: "resume", name: "Currículo", icon: FileText, color: "bg-purple-500" },
+    { id: "terminal", name: "Terminal", icon: Terminal, color: "bg-slate-600" },
   ]
 
   const handleAppClick = (appId: string) => {
