@@ -95,11 +95,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
               <div className="w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto group-hover:scale-105 transition-transform duration-200 shadow-2xl border-2 border-white/20">
                 <img
                   src="/images/flaviojr.jpg"
-                  alt="Foto de Flávio Júnior"
+                  alt="Foto de Flávio Ferreira"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h2 className="text-white text-2xl font-light mb-2">Flávio Júnior</h2>
+              <h2 className="text-white text-2xl font-light mb-2">Flávio Ferreira</h2>
               <p className="text-white/80 text-sm">Desenvolvedor de Software</p>
               <p className="text-white/60 text-xs mt-6 animate-pulse">Clique para entrar</p>
             </div>
@@ -123,11 +123,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
               <div className="w-20 h-20 rounded-full overflow-hidden mb-3 mx-auto border-2 border-white/20">
                 <img
                   src="/images/flaviojr.jpg"
-                  alt="Foto de Flávio Júnior"
+                  alt="Foto de Flávio Ferreira"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h2 className="text-white text-xl font-light">Flávio Júnior</h2>
+              <h2 className="text-white text-xl font-light">Flávio Ferreira</h2>
             </div>
 
             {/* Formulário */}

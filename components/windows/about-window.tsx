@@ -84,12 +84,12 @@ export function AboutWindow(props: AboutWindowProps) {
           <div className="w-20 h-20 rounded-full overflow-hidden">
             <img
               src="/images/flaviojr.jpg"
-              alt="Foto de Flávio Júnior"
+              alt="Foto de Flávio Ferreira"
               className="w-full h-full object-cover"
             />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">Flávio Júnior</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Flávio Ferreira</h1>
             <p className="text-gray-600">{t('role')}</p>
             <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
               <div className="flex items-center gap-1">

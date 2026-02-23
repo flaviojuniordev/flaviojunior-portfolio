@@ -82,7 +82,7 @@ export function ContactWindow(props: ContactWindowProps) {
         from_email: formData.email,
         subject: formData.subject || 'Contato via Portfólio',
         message: formData.message,
-        to_name: 'Flávio Júnior'
+        to_name: 'Flávio Ferreira'
       }
 
       {/*Eu sei que não é a melhor prática mas por hora ficará assim.*/}

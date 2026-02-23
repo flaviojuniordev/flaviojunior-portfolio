@@ -18,7 +18,7 @@ export function ResumeWindow(props: ResumeWindowProps) {
       title: "Desenvolvedor Full Stack Júnior",
       company: "CDC Bank",
       period: "Agosto 2025 - Presente",
-      description: "Desenvolvimento e manutenção de sistemas no setor BAAS (Banking as a Service) de banco digital.",
+      description: "Desenvolvimento e manutenção de sistemas de crédito em empresa de previdência privada. Atuação nos produtos Crédito Protegido (empréstimo com cobertura previdenciária), Leilão de Crédito e CLT Ativo (crédito consignado para trabalhadores formais).",
     },
     {
       title: "Desenvolvedor Full Stack Estagiário",
@@ -60,7 +60,7 @@ export function ResumeWindow(props: ResumeWindowProps) {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-gray-800">Flávio Júnior</h1>
+            <h1 className="text-xl font-bold text-gray-800">Flávio Ferreira</h1>
             <p className="text-gray-600">Desenvolvedor de Software</p>
           </div>
           <Button

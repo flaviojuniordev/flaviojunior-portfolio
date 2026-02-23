@@ -66,11 +66,11 @@ export function StartMenu({ onClose, onOpenWindow }: StartMenuProps) {
               <div className="w-8 h-8 rounded-full overflow-hidden">
                 <img
                   src="/images/flaviojr.jpg"
-                  alt="Foto de Flávio Júnior"
+                  alt="Foto de Flávio Ferreira"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-white text-sm font-medium">Flávio Júnior</span>
+              <span className="text-white text-sm font-medium">Flávio Ferreira</span>
             </div>
             <div className="flex gap-1">
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10 rounded">
