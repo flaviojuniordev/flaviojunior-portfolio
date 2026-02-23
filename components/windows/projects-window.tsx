@@ -202,9 +202,9 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
   if (!selectedProject) {
     return (
       <WindowBase title="Projetos - Pasta" {...props}>
-        <div className="h-full bg-white">
+        <div className="h-full flex flex-col min-h-0 bg-white">
           {/* Toolbar da pasta */}
-          <div className="border-b border-gray-200 p-3 bg-gray-50">
+          <div className="flex-shrink-0 border-b border-gray-200 p-3 bg-gray-50">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Folder className="w-4 h-4 text-blue-600" />
@@ -217,8 +217,8 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
           </div>
 
           {/* Grid de projetos (simulando arquivos) */}
-          <div className="p-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-w-0">
               {projects.map((project) => (
                 <div
                   key={project.id}
@@ -263,9 +263,9 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
 
   return (
     <WindowBase title={`Projeto - ${selectedProject.title}`} {...props}>
-      <div className="h-full bg-white">
+      <div className="h-full flex flex-col min-h-0 bg-white">
         {/* Header com botão voltar */}
-        <div className="border-b border-gray-200 p-3 bg-gray-50">
+        <div className="flex-shrink-0 border-b border-gray-200 p-3 bg-gray-50">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
@@ -276,32 +276,32 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
               <ArrowLeft className="w-4 h-4 mr-1" />
               Voltar
             </Button>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded overflow-hidden">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
                 <img
                   src={selectedProject.image || "/placeholder.svg"}
                   alt={selectedProject.title}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="font-medium text-gray-800">{selectedProject.title}</span>
+              <span className="font-medium text-gray-800 truncate">{selectedProject.title}</span>
               {selectedProject.featured && (
-                <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                <Star className="w-4 h-4 text-yellow-500 fill-current flex-shrink-0" />
               )}
             </div>
           </div>
         </div>
 
         {/* Conteúdo detalhado */}
-        <div className="p-6 space-y-6 overflow-y-auto h-full">
+        <div className="flex-1 min-h-0 overflow-y-auto p-6 space-y-6">
           {/* Cabeçalho do projeto */}
-          <div className="space-y-4">
-            <div className="flex items-start justify-between">
-              <div className="space-y-2">
-                <h1 className="text-2xl font-bold text-gray-800">{selectedProject.title}</h1>
-                <p className="text-gray-600">{selectedProject.detailedDescription}</p>
+          <div className="space-y-4 min-w-0">
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-2 min-w-0 flex-1">
+                <h1 className="text-2xl font-bold text-gray-800 break-words">{selectedProject.title}</h1>
+                <p className="text-gray-600 text-sm break-words">{selectedProject.detailedDescription}</p>
               </div>
-              <Badge className={getStatusColor(selectedProject.status)}>
+              <Badge className={`flex-shrink-0 ${getStatusColor(selectedProject.status)}`}>
                 {getStatusText(selectedProject.status)}
               </Badge>
             </div>
@@ -316,20 +316,20 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
             </div>
 
             {/* Informações básicas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
+              <div className="space-y-2 min-w-0">
                 <h3 className="font-semibold text-gray-800 flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-4 h-4 flex-shrink-0" />
                   Período
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 break-words">
                   {selectedProject.startDate} - {selectedProject.endDate || 'Em andamento'}
                 </p>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 min-w-0">
                 <h3 className="font-semibold text-gray-800 flex items-center gap-2">
-                  <Code className="w-4 h-4" />
+                  <Code className="w-4 h-4 flex-shrink-0" />
                   Tecnologias
                 </h3>
                 <div className="flex flex-wrap gap-1">
@@ -369,16 +369,16 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
           </div>
 
           {/* Seções detalhadas */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-0">
             {/* Funcionalidades */}
             {selectedProject.features && (
-              <div className="space-y-3">
+              <div className="space-y-3 min-w-0">
                 <h3 className="font-semibold text-gray-800">Funcionalidades Principais</h3>
                 <ul className="space-y-2">
                   {selectedProject.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600 break-words">
                       <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
-                      {feature}
+                      <span className="min-w-0">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -387,13 +387,13 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
 
             {/* Desafios */}
             {selectedProject.challenges && (
-              <div className="space-y-3">
+              <div className="space-y-3 min-w-0">
                 <h3 className="font-semibold text-gray-800">Principais Desafios</h3>
                 <ul className="space-y-2">
                   {selectedProject.challenges.map((challenge, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600 break-words">
                       <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0" />
-                      {challenge}
+                      <span className="min-w-0">{challenge}</span>
                     </li>
                   ))}
                 </ul>
@@ -402,13 +402,13 @@ export function ProjectsWindow(props: ProjectsWindowProps) {
 
             {/* Aprendizados */}
             {selectedProject.learnings && (
-              <div className="space-y-3">
+              <div className="space-y-3 min-w-0">
                 <h3 className="font-semibold text-gray-800">Principais Aprendizados</h3>
                 <ul className="space-y-2">
                   {selectedProject.learnings.map((learning, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600 break-words">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      {learning}
+                      <span className="min-w-0">{learning}</span>
                     </li>
                   ))}
                 </ul>
