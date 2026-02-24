@@ -7,6 +7,7 @@ import { TerminalWindow } from "./windows/terminal-window"
 import { JogosWindow } from "./windows/jogos-window"
 import { SnakeGameWindow } from "./windows/snake-game-window"
 import { MusicWindow } from "./windows/music-window"
+import { BrowserWindow } from "./windows/browser-window"
 
 interface WindowManagerProps {
   openWindows: string[]
@@ -49,6 +50,8 @@ export function WindowManager({ openWindows, activeWindow, onClose, onMinimize, 
         return <SnakeGameWindow key={windowId} {...commonProps} />
       case "music":
         return <MusicWindow key={windowId} {...commonProps} />
+      case "browser":
+        return <BrowserWindow key={windowId} {...commonProps} />
       default:
         return null
     }

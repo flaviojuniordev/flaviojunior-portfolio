@@ -46,6 +46,7 @@ export function Taskbar({
       jogos: "Jogos",
       "snake-game": "Snake Game",
       music: "Music",
+      browser: "Navegador",
     }
     return titles[windowId] || windowId
   }
