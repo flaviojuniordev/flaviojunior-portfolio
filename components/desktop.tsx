@@ -23,14 +23,16 @@ export function Desktop({ onOpenWindow }: DesktopProps) {
 
   return (
     <div className="absolute inset-0 p-4" style={{ paddingBottom: safeBottom }}>
-      {/* Wallpaper do Windows 11 */}
+      {/* Wallpaper (paleta do tema) */}
       <div
-        className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800"
+        className="absolute inset-0"
         style={{
+          background: `linear-gradient(to bottom right, var(--desktop-from), var(--desktop-via), var(--desktop-to))`,
           backgroundImage: `
-          radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, rgba(120, 119, 197, 0.2) 0%, transparent 50%)
+          linear-gradient(to bottom right, var(--desktop-from), var(--desktop-via), var(--desktop-to)),
+          radial-gradient(circle at 20% 80%, var(--desktop-overlay-1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, var(--desktop-overlay-2) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, var(--desktop-overlay-3) 0%, transparent 50%)
         `,
         }}
       />
@@ -48,11 +50,11 @@ export function Desktop({ onOpenWindow }: DesktopProps) {
             className="cursor-pointer group flex-shrink-0 w-20"
             onDoubleClick={() => onOpenWindow(icon.id)}
           >
-            <div className="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors duration-200 w-20">
-              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mb-2 group-hover:bg-white/30 transition-colors duration-200">
-                <icon.icon className="w-6 h-6 text-white" />
+            <div className="flex flex-col items-center p-3 rounded-lg transition-colors duration-200 w-20 hover:bg-[var(--desktop-icon-bg-hover)]" style={{ backgroundColor: "transparent" }}>
+              <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center mb-2 transition-colors duration-200 group-hover:bg-[var(--desktop-icon-bg-hover)]" style={{ backgroundColor: "var(--desktop-icon-bg)" }}>
+                <icon.icon className="w-6 h-6 text-[var(--desktop-text)]" />
               </div>
-              <span className="text-white text-xs font-medium text-center leading-tight">{icon.name}</span>
+              <span className="text-xs font-medium text-center leading-tight text-[var(--desktop-text)]">{icon.name}</span>
             </div>
           </div>
         ))}
@@ -64,17 +66,21 @@ export function Desktop({ onOpenWindow }: DesktopProps) {
           href="https://github.com/flaviojuniordev"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-200"
+          title="GitHub"
+          className="w-10 h-10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-colors duration-200 hover:bg-[var(--desktop-icon-bg-hover)]"
+          style={{ backgroundColor: "var(--desktop-icon-bg)" }}
         >
-          <Github className="w-5 h-5 text-white" />
+          <Github className="w-5 h-5 text-[var(--desktop-text)]" />
         </a>
         <a
           href="https://www.linkedin.com/in/flaviojrdev/"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors duration-200"
+          title="LinkedIn"
+          className="w-10 h-10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-colors duration-200 hover:bg-[var(--desktop-icon-bg-hover)]"
+          style={{ backgroundColor: "var(--desktop-icon-bg)" }}
         >
-          <Linkedin className="w-5 h-5 text-white" />
+          <Linkedin className="w-5 h-5 text-[var(--desktop-text)]" />
         </a>
       </div>
     </div>

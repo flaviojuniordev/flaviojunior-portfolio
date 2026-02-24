@@ -187,8 +187,8 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
   return (
     <div
       ref={windowRef}
-      className={`fixed bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${!isDragging ? "transition-all duration-200" : ""
-        } ${isActive ? "ring-2 ring-blue-500/50" : ""} overflow-hidden`}
+      className={`fixed bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${!isDragging ? "transition-all duration-200" : ""} overflow-hidden`}
+      style={isActive ? { boxShadow: "0 0 0 2px var(--desktop-ring)" } : undefined}
       style={appliedStyle}
       onClick={onActivate}
     >

@@ -7,6 +7,7 @@ import { StartMenu } from "@/components/start-menu"
 import { WindowManager } from "@/components/window-manager"
 import { NotificationCenter } from "@/components/notification-center"
 import { LoginScreen } from "@/components/login-screen"
+import { DesktopThemeProvider } from "@/contexts/desktop-theme-context"
 
 export default function Windows11Portfolio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -56,30 +57,37 @@ export default function Windows11Portfolio() {
 
   // Mostrar desktop após login
   return (
-    <div className="h-screen w-full overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 relative">
-      <Desktop onOpenWindow={openWindow} />
+    <DesktopThemeProvider>
+      <div
+        className="h-screen w-full overflow-hidden relative"
+        style={{
+          background: "linear-gradient(to bottom right, var(--desktop-from), var(--desktop-via), var(--desktop-to))",
+        }}
+      >
+        <Desktop onOpenWindow={openWindow} />
 
-      <WindowManager
-        openWindows={openWindows}
-        activeWindow={activeWindow}
-        onClose={closeWindow}
-        onMinimize={minimizeWindow}
-        onActivate={setActiveWindow}
-        onOpenWindow={openWindow}
-      />
+        <WindowManager
+          openWindows={openWindows}
+          activeWindow={activeWindow}
+          onClose={closeWindow}
+          onMinimize={minimizeWindow}
+          onActivate={setActiveWindow}
+          onOpenWindow={openWindow}
+        />
 
-      {isStartMenuOpen && <StartMenu onClose={() => setIsStartMenuOpen(false)} onOpenWindow={openWindow} />}
+        {isStartMenuOpen && <StartMenu onClose={() => setIsStartMenuOpen(false)} onOpenWindow={openWindow} />}
 
-      {isNotificationOpen && <NotificationCenter onClose={() => setIsNotificationOpen(false)} />}
+        {isNotificationOpen && <NotificationCenter onClose={() => setIsNotificationOpen(false)} />}
 
-      <Taskbar
-        openWindows={openWindows}
-        activeWindow={activeWindow}
-        currentTime={currentTime}
-        onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
-        onNotificationClick={() => setIsNotificationOpen(!isNotificationOpen)}
-        onWindowClick={setActiveWindow}
-      />
-    </div>
+        <Taskbar
+          openWindows={openWindows}
+          activeWindow={activeWindow}
+          currentTime={currentTime}
+          onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
+          onNotificationClick={() => setIsNotificationOpen(!isNotificationOpen)}
+          onWindowClick={setActiveWindow}
+        />
+      </div>
+    </DesktopThemeProvider>
   )
 }

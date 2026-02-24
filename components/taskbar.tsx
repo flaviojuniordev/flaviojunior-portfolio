@@ -50,16 +50,19 @@ export function Taskbar({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-12 bg-black/40 backdrop-blur-xl border-t border-white/10 z-50">
+    <div
+      className="fixed bottom-0 left-0 right-0 h-12 backdrop-blur-xl border-t z-50"
+      style={{ backgroundColor: "var(--taskbar-bg)", borderColor: "var(--panel-border)" }}
+    >
       <div className="flex items-center h-full px-2">
         {/* Botão Iniciar */}
-        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 hover:bg-white/10 rounded-lg" onClick={onStartClick}>
-          <Windows className="w-5 h-5 text-white" />
+        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-lg hover:bg-white/10" onClick={onStartClick} style={{ color: "var(--desktop-text)" }}>
+          <Windows className="w-5 h-5" />
         </Button>
 
         {/* Busca */}
-        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 hover:bg-white/10 rounded-lg ml-1">
-          <Search className="w-4 h-4 text-white" />
+        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-lg ml-1 hover:bg-white/10" style={{ color: "var(--desktop-text)" }}>
+          <Search className="w-4 h-4" />
         </Button>
 
         {/* Janelas abertas */}
@@ -69,8 +72,8 @@ export function Taskbar({
               key={windowId}
               variant="ghost"
               size="sm"
-              className={`h-10 px-3 hover:bg-white/10 rounded-lg text-white text-xs ${activeWindow === windowId ? "bg-white/20" : ""
-                }`}
+              className={`h-10 px-3 rounded-lg text-xs hover:bg-white/10 ${activeWindow === windowId ? "bg-white/20" : ""}`}
+              style={{ color: "var(--desktop-text)" }}
               onClick={() => onWindowClick(windowId)}
             >
               {getWindowTitle(windowId)}
@@ -80,24 +83,23 @@ export function Taskbar({
 
         {/* Área direita */}
         <div className="ml-auto flex items-center gap-2">
-          {/* Ícones do sistema */}
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10 rounded">
-              <Wifi className="w-4 h-4 text-white" />
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded hover:bg-white/10" style={{ color: "var(--desktop-text)" }}>
+              <Wifi className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10 rounded">
-              <Volume2 className="w-4 h-4 text-white" />
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded hover:bg-white/10" style={{ color: "var(--desktop-text)" }}>
+              <Volume2 className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-white/10 rounded">
-              <Battery className="w-4 h-4 text-white" />
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded hover:bg-white/10" style={{ color: "var(--desktop-text)" }}>
+              <Battery className="w-4 h-4" />
             </Button>
           </div>
 
-          {/* Data e Hora */}
           <Button
             variant="ghost"
             size="sm"
-            className="h-10 px-3 hover:bg-white/10 rounded-lg text-white text-xs flex flex-col items-end leading-tight"
+            className="h-10 px-3 rounded-lg text-xs flex flex-col items-end leading-tight hover:bg-white/10"
+            style={{ color: "var(--desktop-text)" }}
             onClick={onNotificationClick}
           >
             <span className="font-medium">{formatTime(currentTime)}</span>
