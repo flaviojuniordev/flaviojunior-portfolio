@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { User, Folder, Monitor, Mail, FileText, Power, Settings, Search, Terminal, Palette } from "lucide-react"
+import { User, Folder, Monitor, Mail, FileText, Power, Settings, Search, Terminal, Palette, Music2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useDesktopTheme } from "@/contexts/desktop-theme-context"
@@ -32,6 +32,7 @@ export function StartMenu({ onClose, onOpenWindow }: StartMenuProps) {
       { id: "contact", name: "Contato", icon: Mail, color: "bg-rose-500" },
       { id: "resume", name: "Currículo", icon: FileText, color: "bg-violet-500" },
       { id: "terminal", name: "Terminal", icon: Terminal, color: "bg-slate-600" },
+      { id: "music", name: "Music", icon: Music2, color: "bg-emerald-600" },
     ],
     []
   )

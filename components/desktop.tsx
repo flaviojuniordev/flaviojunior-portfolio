@@ -1,6 +1,6 @@
 "use client"
 
-import { Monitor, Folder, FileText, User, Mail, Github, Linkedin, Terminal, Gamepad2 } from "lucide-react"
+import { Monitor, Folder, FileText, User, Mail, Github, Linkedin, Terminal, Gamepad2, Music2 } from "lucide-react"
 
 interface DesktopProps {
   onOpenWindow: (windowId: string) => void
@@ -15,6 +15,7 @@ export function Desktop({ onOpenWindow }: DesktopProps) {
     { id: "resume", name: "Currículo", icon: FileText },
     { id: "terminal", name: "Terminal", icon: Terminal },
     { id: "jogos", name: "Jogos", icon: Gamepad2 },
+    { id: "music", name: "Music", icon: Music2 },
   ]
 
   // Barra de tarefas = h-12 (3rem). Usamos 4rem como margem segura para qualquer tela/zoom.

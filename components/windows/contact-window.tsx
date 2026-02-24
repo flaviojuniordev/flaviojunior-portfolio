@@ -126,7 +126,7 @@ export function ContactWindow(props: ContactWindowProps) {
 
   return (
     <WindowBase title="Entre em Contato" {...props}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+      <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
         {/* Informações de contato */}
         <div className="space-y-6">
           <div>

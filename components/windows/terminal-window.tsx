@@ -173,7 +173,7 @@ export function TerminalWindow(props: TerminalWindowProps) {
   return (
     <WindowBase title="Terminal" {...props}>
       <div
-        className="h-full flex flex-col min-h-0 bg-[#0c0c0c] text-green-400 font-mono text-sm rounded-xl overflow-hidden"
+        className="h-full flex flex-col min-h-0 bg-[#0c0c0c] text-green-400 font-mono text-sm overflow-hidden"
         onClick={() => inputRef.current?.focus()}
       >
         <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-4 space-y-1">

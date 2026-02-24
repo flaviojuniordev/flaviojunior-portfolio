@@ -187,13 +187,14 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
   return (
     <div
       ref={windowRef}
-      className={`fixed bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${!isDragging ? "transition-all duration-200" : ""} overflow-hidden`}
+      className={`fixed flex flex-col bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white/20 ${!isDragging ? "transition-all duration-200" : ""} overflow-hidden`}
       style={isActive ? { boxShadow: "0 0 0 2px var(--desktop-ring)" } : undefined}
       style={appliedStyle}
       onClick={onActivate}
     >
+      {/* Cabeçalho fixo: título + botões */}
       <div
-        className={`flex items-center justify-between h-12 px-4 bg-white/50 backdrop-blur-sm rounded-t-xl border-b border-white/20 ${!isMobile && !isFullscreen ? "cursor-move" : ""}`}
+        className={`flex flex-shrink-0 items-center justify-between h-12 px-4 bg-white/50 backdrop-blur-sm rounded-t-xl border-b border-white/20 ${!isMobile && !isFullscreen ? "cursor-move" : ""}`}
         onMouseDown={handleTitleBarMouseDown}
       >
         <h2 className="text-gray-800 font-medium text-sm select-none truncate">{title}</h2>
@@ -231,7 +232,10 @@ export function WindowBase({ title, children, isActive, onClose, onMinimize, onA
         </div>
       </div>
 
-      <div className="p-4 sm:p-6 h-[calc(100%-3rem)] overflow-auto">{children}</div>
+      {/* Área de conteúdo: preenche todo o espaço abaixo do cabeçalho (sem padding; cada janela define o seu) */}
+      <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+        <div className="flex-1 min-h-0 flex flex-col overflow-auto min-w-0">{children}</div>
+      </div>
     </div>
   )
 }

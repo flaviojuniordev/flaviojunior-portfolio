@@ -45,6 +45,7 @@ export function Taskbar({
       terminal: "Terminal",
       jogos: "Jogos",
       "snake-game": "Snake Game",
+      music: "Music",
     }
     return titles[windowId] || windowId
   }

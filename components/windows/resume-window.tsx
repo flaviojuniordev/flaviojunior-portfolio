@@ -15,10 +15,16 @@ interface ResumeWindowProps {
 export function ResumeWindow(props: ResumeWindowProps) {
   const experiences = [
     {
+      title: "Desenvolvedor Backend Júnior",
+      company: "Onze",
+      period: "Dezembro 2025 - Presente",
+      description: "Desenvolvimento e manutenção de sistemas de crédito em empresa de previdência privada. Atuação nos produtos Crédito Protegido (empréstimo com cobertura previdenciária), Leilão de Crédito e CLT Ativo (crédito consignado para trabalhadores formais).",
+    },
+    {
       title: "Desenvolvedor Full Stack Júnior",
       company: "CDC Bank",
-      period: "Agosto 2025 - Presente",
-      description: "Desenvolvimento e manutenção de sistemas de crédito em empresa de previdência privada. Atuação nos produtos Crédito Protegido (empréstimo com cobertura previdenciária), Leilão de Crédito e CLT Ativo (crédito consignado para trabalhadores formais).",
+      period: "Agosto 2025 - Dezembro 2025",
+      description: "Atuação em sistema de BaaS (Banking as a Service), trabalhando especialmente no microsserviço de PIX com PHP.",
     },
     {
       title: "Desenvolvedor Full Stack Estagiário",
@@ -56,7 +62,7 @@ export function ResumeWindow(props: ResumeWindowProps) {
 
   return (
     <WindowBase title="Meu Currículo" {...props}>
-      <div className="space-y-6">
+      <div className="p-4 sm:p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>

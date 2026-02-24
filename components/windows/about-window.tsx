@@ -50,7 +50,7 @@ export function AboutWindow(props: AboutWindowProps) {
 
   return (
     <WindowBase title={t('title')} {...props}>
-      <div className="space-y-6">
+      <div className="relative p-4 sm:p-6 space-y-6">
         {/* Language Selector */}
         <div className="absolute top-14 right-8 flex space-x-2">
           <Button
