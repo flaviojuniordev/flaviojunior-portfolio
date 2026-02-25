@@ -5,7 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 export type DesktopThemeId = "blue" | "dark" | "forest" | "sunset" | "purple" | "ocean"
 
 export const DESKTOP_THEMES: { id: DesktopThemeId; name: string; preview: string[] }[] = [
-  { id: "blue", name: "Windows", preview: ["#2563eb", "#1d4ed8", "#3730a3"] },
+  { id: "blue", name: "FlaviOS", preview: ["#2563eb", "#1d4ed8", "#3730a3"] },
   { id: "dark", name: "Escuro", preview: ["#1f2937", "#111827", "#030712"] },
   { id: "forest", name: "Floresta", preview: ["#166534", "#14532d", "#052e16"] },
   { id: "sunset", name: "Pôr do sol", preview: ["#ea580c", "#c2410c", "#9a3412"] },

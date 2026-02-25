@@ -57,8 +57,8 @@ export function Taskbar({
       style={{ backgroundColor: "var(--taskbar-bg)", borderColor: "var(--panel-border)" }}
     >
       <div className="flex items-center h-full px-2">
-        {/* Botão Iniciar */}
-        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-lg hover:bg-white/10" onClick={onStartClick} style={{ color: "var(--desktop-text)" }}>
+        {/* Botão Iniciar FlaviOS */}
+        <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-lg hover:bg-white/10" onClick={onStartClick} style={{ color: "var(--desktop-text)" }} title="FlaviOS">
           <Windows className="w-5 h-5" />
         </Button>
 

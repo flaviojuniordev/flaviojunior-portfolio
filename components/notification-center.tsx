@@ -1,13 +1,25 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Bell, X, Settings, Wifi, Battery } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+const PANEL_ANIMATION_MS = 200
 
 interface NotificationCenterProps {
   onClose: () => void
 }
 
 export function NotificationCenter({ onClose }: NotificationCenterProps) {
+  const [isEntering, setIsEntering] = useState(true)
+
+  useEffect(() => {
+    const t = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsEntering(false))
+    })
+    return () => cancelAnimationFrame(t)
+  }, [])
+
   const notifications = [
     {
       id: 1,
@@ -31,8 +43,14 @@ export function NotificationCenter({ onClose }: NotificationCenterProps) {
       <div className="fixed inset-0 z-40" onClick={onClose} />
 
       <div
-        className="fixed bottom-12 right-2 z-50 w-80 h-96 backdrop-blur-xl rounded-xl border shadow-2xl"
-        style={{ backgroundColor: "var(--panel-bg)", borderColor: "var(--panel-border)" }}
+        className="fixed bottom-12 right-2 z-50 w-80 h-96 backdrop-blur-xl rounded-xl border shadow-2xl ease-out"
+        style={{
+          backgroundColor: "var(--panel-bg)",
+          borderColor: "var(--panel-border)",
+          opacity: isEntering ? 0 : 1,
+          transform: isEntering ? "translateY(8px) scale(0.96)" : "translateY(0) scale(1)",
+          transition: `opacity ${PANEL_ANIMATION_MS}ms ease-out, transform ${PANEL_ANIMATION_MS}ms ease-out`,
+        }}
       >
         <div className="p-4 h-full flex flex-col">
           <div className="flex items-center justify-between mb-4">

@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mesmo gradiente da boot/login — evita qualquer tom diferente na transição */
+html,
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 100%);
+  background-attachment: fixed;
+  min-height: 100%;
 }
 
 @layer utilities {
@@ -193,6 +198,7 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    /* background já definido acima (azul) para evitar flash na transição */
   }
 }

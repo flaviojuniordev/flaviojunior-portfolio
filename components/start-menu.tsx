@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { User, Folder, Monitor, Mail, FileText, Power, Settings, Search, Terminal, Palette, Music2, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -20,9 +20,19 @@ function normalizeForSearch(text: string): string {
     .trim()
 }
 
+const PANEL_ANIMATION_MS = 200
+
 export function StartMenu({ onClose, onOpenWindow }: StartMenuProps) {
   const { themeId, setThemeId } = useDesktopTheme()
   const [searchQuery, setSearchQuery] = useState("")
+  const [isEntering, setIsEntering] = useState(true)
+
+  useEffect(() => {
+    const t = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsEntering(false))
+    })
+    return () => cancelAnimationFrame(t)
+  }, [])
 
   const pinnedApps = useMemo(
     () => [
@@ -57,14 +67,17 @@ export function StartMenu({ onClose, onOpenWindow }: StartMenuProps) {
     <>
       <div className="fixed inset-0 z-40" onClick={onClose} aria-hidden />
 
-      {/* Container estilo Windows 11: centralizado acima da barra de tarefas */}
+      {/* Container FlaviOS: centralizado acima da barra de tarefas */}
       <div
-        className="fixed left-1/2 -translate-x-1/2 bottom-14 z-50 w-[min(36rem,calc(100vw-1rem))] rounded-2xl shadow-2xl overflow-hidden flex flex-col border"
+        className="fixed left-1/2 bottom-14 z-50 w-[min(36rem,calc(100vw-1rem))] rounded-2xl shadow-2xl overflow-hidden flex flex-col border ease-out"
         style={{
           backgroundColor: "var(--panel-bg)",
           borderColor: "var(--panel-border)",
           maxHeight: "min(32rem, calc(100vh - 6rem))",
           minHeight: "24rem",
+          opacity: isEntering ? 0 : 1,
+          transform: isEntering ? "translate(-50%, 8px) scale(0.96)" : "translate(-50%, 0) scale(1)",
+          transition: `opacity ${PANEL_ANIMATION_MS}ms ease-out, transform ${PANEL_ANIMATION_MS}ms ease-out`,
         }}
       >
         {/* Barra de pesquisa - topo fixo */}

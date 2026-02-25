@@ -12,19 +12,22 @@ import { BrowserWindow } from "./windows/browser-window"
 interface WindowManagerProps {
   openWindows: string[]
   activeWindow: string | null
+  minimizedWindows: string[]
   onClose: (windowId: string) => void
   onMinimize: (windowId: string) => void
   onActivate: (windowId: string) => void
   onOpenWindow: (windowId: string) => void
 }
 
-export function WindowManager({ openWindows, activeWindow, onClose, onMinimize, onActivate, onOpenWindow }: WindowManagerProps) {
+export function WindowManager({ openWindows, activeWindow, minimizedWindows, onClose, onMinimize, onActivate, onOpenWindow }: WindowManagerProps) {
   const renderWindow = (windowId: string) => {
     const isActive = activeWindow === windowId
+    const isMinimized = minimizedWindows.includes(windowId)
     const zIndex = isActive ? 30 : 20
 
     const commonProps = {
       isActive,
+      isMinimized,
       onClose: () => onClose(windowId),
       onMinimize: () => onMinimize(windowId),
       onActivate: () => onActivate(windowId),

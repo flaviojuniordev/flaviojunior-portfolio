@@ -134,7 +134,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="bg-black/20 p-3 rounded-lg border border-white/10">
                 <p className="text-center text-white/90 text-sm">
-                  Bem-vindo ao meu portfólio
+                  Bem-vindo ao FlaviOS
                 </p>
               </div>
 

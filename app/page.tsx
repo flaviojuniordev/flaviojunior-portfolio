@@ -7,14 +7,18 @@ import { StartMenu } from "@/components/start-menu"
 import { WindowManager } from "@/components/window-manager"
 import { NotificationCenter } from "@/components/notification-center"
 import { LoginScreen } from "@/components/login-screen"
+import { BootScreen } from "@/components/boot-screen"
 import { DesktopThemeProvider } from "@/contexts/desktop-theme-context"
 
-export default function Windows11Portfolio() {
+export default function FlaviOSPortfolio() {
+  const [bootComplete, setBootComplete] = useState(false)
+  const [bootOverlayVisible, setBootOverlayVisible] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false)
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
   const [openWindows, setOpenWindows] = useState<string[]>([])
   const [activeWindow, setActiveWindow] = useState<string | null>(null)
+  const [minimizedWindows, setMinimizedWindows] = useState<string[]>([])
   const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
@@ -33,11 +37,18 @@ export default function Windows11Portfolio() {
       setOpenWindows([...openWindows, windowId])
     }
     setActiveWindow(windowId)
+    setMinimizedWindows((prev) => prev.filter((id) => id !== windowId))
     setIsStartMenuOpen(false)
+  }
+
+  const handleTaskbarWindowClick = (windowId: string) => {
+    setActiveWindow(windowId)
+    setMinimizedWindows((prev) => prev.filter((id) => id !== windowId))
   }
 
   const closeWindow = (windowId: string) => {
     setOpenWindows(openWindows.filter((id) => id !== windowId))
+    setMinimizedWindows((prev) => prev.filter((id) => id !== windowId))
     if (activeWindow === windowId) {
       const remainingWindows = openWindows.filter((id) => id !== windowId)
       setActiveWindow(remainingWindows.length > 0 ? remainingWindows[remainingWindows.length - 1] : null)
@@ -45,14 +56,29 @@ export default function Windows11Portfolio() {
   }
 
   const minimizeWindow = (windowId: string) => {
+    setMinimizedWindows((prev) => (prev.includes(windowId) ? prev : [...prev, windowId]))
     if (activeWindow === windowId) {
       setActiveWindow(null)
     }
   }
 
-  // Mostrar tela de login se não estiver logado
+  // Boot + Login: BootScreen não é desmontado na transição — vira cortina (evita flash branco)
   if (!isLoggedIn) {
-    return <LoginScreen onLogin={handleLogin} />
+    return (
+      <>
+        {bootComplete && <LoginScreen onLogin={handleLogin} />}
+        {(!bootComplete || bootOverlayVisible) && (
+          <BootScreen
+            onBootComplete={() => {
+              setBootComplete(true)
+              setBootOverlayVisible(true)
+            }}
+            isExiting={bootComplete}
+            onFadeOutComplete={() => setBootOverlayVisible(false)}
+          />
+        )}
+      </>
+    )
   }
 
   // Mostrar desktop após login
@@ -69,6 +95,7 @@ export default function Windows11Portfolio() {
         <WindowManager
           openWindows={openWindows}
           activeWindow={activeWindow}
+          minimizedWindows={minimizedWindows}
           onClose={closeWindow}
           onMinimize={minimizeWindow}
           onActivate={setActiveWindow}
@@ -85,7 +112,7 @@ export default function Windows11Portfolio() {
           currentTime={currentTime}
           onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
           onNotificationClick={() => setIsNotificationOpen(!isNotificationOpen)}
-          onWindowClick={setActiveWindow}
+          onWindowClick={handleTaskbarWindowClick}
         />
       </div>
     </DesktopThemeProvider>
