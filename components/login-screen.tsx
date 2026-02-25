@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Eye, EyeOff, Power, Wifi, Volume2, ArrowLeft, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,10 +11,16 @@ interface LoginScreenProps {
   onLogin: () => void
 }
 
+const ENTER_DURATION_MS = 600
+
 export function LoginScreen({ onLogin }: LoginScreenProps) {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isLoading, setIsLoading] = useState(false)
   const [showLoginScreen, setShowLoginScreen] = useState(false)
+  const [isEntering, setIsEntering] = useState(true)
+  const [cardVisible, setCardVisible] = useState(false)
+  const [isExiting, setIsExiting] = useState(false)
+  const exitDoneRef = useRef(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,6 +28,22 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
     }, 1000)
     return () => clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    const t = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsEntering(false))
+    })
+    return () => cancelAnimationFrame(t)
+  }, [])
+
+  useEffect(() => {
+    if (showLoginScreen && !cardVisible) {
+      const t = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setCardVisible(true))
+      })
+      return () => cancelAnimationFrame(t)
+    }
+  }, [showLoginScreen, cardVisible])
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("pt-BR", {
@@ -39,6 +61,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
   }
 
   const handleUserClick = () => {
+    setCardVisible(false)
     setShowLoginScreen(true)
   }
 
@@ -49,6 +72,13 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
     // Simular carregamento do sistema operacional
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
+    exitDoneRef.current = false
+    setIsExiting(true)
+  }
+
+  const handleExitTransitionEnd = (e: React.TransitionEvent) => {
+    if (e.target !== e.currentTarget || e.propertyName !== "opacity" || !isExiting || exitDoneRef.current) return
+    exitDoneRef.current = true
     onLogin()
   }
 
@@ -56,8 +86,19 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
     setShowLoginScreen(false)
   }
 
+  const opacity = isEntering ? 0 : isExiting ? 0 : 1
+  const exitDuration = 500
+
   return (
-    <div className="h-screen w-full overflow-hidden relative">
+    <div
+      className="h-screen w-full overflow-hidden relative ease-out"
+      style={{
+        opacity,
+        transitionDuration: isExiting ? `${exitDuration}ms` : "600ms",
+        transitionProperty: "opacity",
+      }}
+      onTransitionEnd={handleExitTransitionEnd}
+    >
       {/* Background minimalista */}
       <div
         className="absolute inset-0"
@@ -106,7 +147,13 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
           </div>
         ) : (
           /* Tela de login - estilo sistema operacional */
-          <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 w-96 shadow-2xl border border-white/10">
+          <div
+            className="bg-black/40 backdrop-blur-xl rounded-2xl p-8 w-96 shadow-2xl border border-white/10 transition-all duration-300 ease-out"
+            style={{
+              opacity: cardVisible ? 1 : 0,
+              transform: cardVisible ? "scale(1)" : "scale(0.96)",
+            }}
+          >
             {/* Botão voltar */}
             <Button
               variant="ghost"

@@ -20,6 +20,7 @@ export default function FlaviOSPortfolio() {
   const [activeWindow, setActiveWindow] = useState<string | null>(null)
   const [minimizedWindows, setMinimizedWindows] = useState<string[]>([])
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [desktopVisible, setDesktopVisible] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,6 +32,15 @@ export default function FlaviOSPortfolio() {
   const handleLogin = () => {
     setIsLoggedIn(true)
   }
+
+  useEffect(() => {
+    if (isLoggedIn && !desktopVisible) {
+      const t = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setDesktopVisible(true))
+      })
+      return () => cancelAnimationFrame(t)
+    }
+  }, [isLoggedIn, desktopVisible])
 
   const openWindow = (windowId: string) => {
     if (!openWindows.includes(windowId)) {
@@ -85,9 +95,10 @@ export default function FlaviOSPortfolio() {
   return (
     <DesktopThemeProvider>
       <div
-        className="h-screen w-full overflow-hidden relative"
+        className="h-screen w-full overflow-hidden relative transition-opacity duration-500 ease-out"
         style={{
           background: "linear-gradient(to bottom right, var(--desktop-from), var(--desktop-via), var(--desktop-to))",
+          opacity: desktopVisible ? 1 : 0,
         }}
       >
         <Desktop onOpenWindow={openWindow} />
